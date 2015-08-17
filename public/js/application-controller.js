@@ -16,28 +16,27 @@ define(function (require) {
 	var AppController = Marionette.Object.extend({
 		initialize: function () {
 			console.log('C:AppController:init');
-			var appLayoutView = new AppLayoutView();
-			this.layout = appLayoutView;
-			appLayoutView.render();
+			this.layout = new AppLayoutView();
+			this.layout.render();
 		},
 		home: function () {
 			console.log('C:AppController:home');
-			// this.layout.getRegion('sidebar').show();
-			// this.layout.getRegion('main').show();
-			// this.layout.getRegion('compose').show();
+			// this.layout.sidebar.show();
+			// this.layout.main.show();
+			// this.layout.compose.show();
 		},
 		room: function (roomId) {
-			console.log('C:AppController:room');
-			var mesages = new Messages({
+			var self = this;
+			console.log('C:AppController:room', this.layout.$el.html());
+			var messages = new Messages({
 				roomId: roomId
 			});
-			var messagesView = new MessagesView({
-				model: mesages
-			});
-			mesages.fetch();
-			// this.layout.getRegion('sidebar').show();
-			// this.layout.getRegion('main').show();
-			// this.layout.getRegion('compose').show();
+			// this.layout.sidebar.show();
+			this.layout.main.show(new MessagesView({
+				collection: messages
+			}));
+			this.layout.compose.show(new MessageComposeView());
+			messages.fetch();
 		}
 	});
 	return AppController;

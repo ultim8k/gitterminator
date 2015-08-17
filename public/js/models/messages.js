@@ -2,6 +2,7 @@
 'use strict';
 
 define(function (require) {
+	var underscore = require('underscore');
 	var backbone = require('backbone');
 	var Message = require('models/message');
 
@@ -11,8 +12,12 @@ define(function (require) {
 			return '/api/rooms/' + this.options.roomId + '/messages';
 		},
 		model: Message,
+		parse: function (response) {
+			return response.messages;
+		},
 		initialize: function (options) {
 			console.log('M:Messages:init', options);
+			_.bindAll(this, 'parse');
 			this.options = options;
 		}
 	});

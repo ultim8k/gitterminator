@@ -8,9 +8,13 @@ define(function (require) {
 	var messageTpl = Handlebars.compile(messageUTpl);
 
 	var MessageItemView = Marionette.ItemView.extend({
+		className: 'message',
 		template: messageTpl,
+		onRender: function(data) {
+			console.log('V:MessageItemView:onRender', data);
+		},
 		initialize: function () {
-			console.log('V:MessageItemView:init');
+			console.log('V:MessageItemView:init', this.model);
 		}
 	});
 

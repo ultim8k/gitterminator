@@ -2,29 +2,30 @@ extends layout
 
 block content
 
-  .container-fluid
-    .row
-      .col-md-6.col-md-offset-3
-        div(id="app", class="app js_app")
-        .home
-          if user && user != null
-            img.img-circle(src="#{user.avatarUrlMedium}")
+	#app.app.js_app Loading...
+	//- .container-fluid
+	//- 	.row
+	//- 		.col-md-12.col-md-offset-3
 
-            h1 Hello #{user.username}!
-            p
-              |You authenticated using app
-              strong #{clientId}
-              |, this is your token:
-            p.mono #{token}
-            p
-              |Search
-              a(href='https://developer.gitter.im/docs/welcome')
-                |Developer documentation
-              |.
+	//- 			div.home
+	//- 				if user && user != null
+	//- 					img.img-circle(src="#{user.avatarUrlMedium}")
 
-            h3 You're currently in the following rooms:
-            - each room in rooms
-              a(href="/rooms/#{room.id}")
-                span= room.name
-              //- a.btn(href="https://gitter.im#{room.url}")
-                span= room.name
+	//- 					h1 Hello #{user.username}!
+	//- 					p
+	//- 						|You authenticated using app
+	//- 						strong #{clientId}
+	//- 						|, this is your token:
+	//- 					p.mono #{token}
+	//- 					p
+	//- 						|Search
+	//- 						a(href='https://developer.gitter.im/docs/welcome')
+	//- 							|Developer documentation
+	//- 						|.
+
+	//- 					h3 You're currently in the following rooms:
+	//- 					- each room in rooms
+	//- 						a(href="/rooms/#{room.id}")
+	//- 							span= room.name
+	//- 						//- a.btn(href="https://gitter.im#{room.url}")
+	//- 							span= room.name

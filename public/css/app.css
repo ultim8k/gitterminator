@@ -14,3 +14,20 @@
 .mono {
 	font-family: Monaco, "Liberation Mono", Courier, monospace;
 }
+.app-sidebar {
+	background-color: #515151;
+	color: white;
+	min-height: 100vh;
+}
+.app-main {
+	min-height: 100vh;
+	max-height: 100vh;
+	/*padding-bottom: 50px;*/
+}
+.messages {
+	max-height: 100vh;
+	overflow: scroll;
+}
+.app-compose {
+
+}

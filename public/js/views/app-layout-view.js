@@ -6,7 +6,7 @@ define(function (require) {
 	var messengerTpl = require('text!templates/messenger.html');
 
 	var AppLayoutView = Marionette.LayoutView.extend({
-		// el: '#app',
+		el: '#app',
 		template: messengerTpl,
 		regions: {
 			sidebar: "#app_sidebar",
