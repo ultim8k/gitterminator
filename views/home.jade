@@ -2,25 +2,24 @@ extends layout
 
 block content
 
-  include nav
-
   .container-fluid
     .row
       .col-md-6.col-md-offset-3
+        div(id="app", class="app js_app")
         .home
           img.img-circle(src="#{user.avatarUrlMedium}")
 
           h1 Hello #{user.username}!
-          p 
-            |You authenticated using app 
+          p
+            |You authenticated using app
             strong #{clientId}
             |, this is your token:
           p.mono #{token}
-          p 
-            |Search 
+          p
+            |Search
             a(href='https://developer.gitter.im/docs/welcome')
               |Developer documentation
-            |. 
+            |.
 
           h3 You're currently in the following rooms:
           - each room in rooms
