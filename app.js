@@ -29,7 +29,7 @@ var gitter = {
 			if (res.statusCode === 200) {
 				cb(null, JSON.parse(body));
 			} else {
-				cb('err' + res.statusCode);
+				cb('err' + res.statusCode, JSON.parse(body));
 			}
 		});
 	},
@@ -50,7 +50,7 @@ var gitter = {
 			if (res.statusCode === 200) {
 				cb(null, JSON.parse(body));
 			} else {
-				cb('err' + res.statusCode);
+				cb('err' + res.statusCode, JSON.parse(body));
 			}
 		});
 	},
@@ -79,6 +79,11 @@ var gitter = {
 			cb(err, response);
 		});
 	}
+};
+
+var isValidSession = function(req, res) {
+	if (!req.session || !req.session.token) { return false; }
+	return true;
 };
 
 var app = express();
@@ -145,7 +150,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/home', function(req, res) {
-	if (!req.user) return res.redirect('/');
+	if (!isValidSession(req, res) || !req.user) { return res.redirect('/'); }
 
 	// Fetch user rooms using the Gitter API
 	gitter.fetchRooms(req.user, req.session.token, function(err, rooms) {
@@ -160,9 +165,25 @@ app.get('/home', function(req, res) {
 	});
 });
 
+app.get('/rooms/:id', function(req, res) {
+	if (!isValidSession(req, res) || !req.params.id) { return res.redirect('/'); }
+	// Fetch user rooms using the Gitter APIs
+	gitter.fetchMessages(req.params.id, null, req.session.token, function(err, response) {
+		if (err) {
+			console.log(err, response);
+			return res.send(500);
+		}
+
+		res.render('home', {
+			token: req.session.token,
+			clientId: clientId,
+			messages: response
+		});
+	});
+});
+
 // Api Routes
 app.get('/api/user', function(req, res) {
-	if (!req.user) return res.redirect('/');
 	gitter.fetchCurrentUser(req.session.token, function(err, user) {
 		if (err) return res.send(500);
 
@@ -186,9 +207,10 @@ app.get('/api/rooms', function(req, res) {
 	});
 });
 
-app.get('/api/messages', function(req, res) {
-	var beforeMessageId = req.beforeMessageId || null;
-	gitter.fetchMessages(req.roomId, beforeMessageId, req.session.token, function(err, messages) {
+app.get('/api/rooms/:roomId/messages', function(req, res) {
+	var beforeMessageId = req.query.beforeMessageId || null;
+	console.log('requesting messages for roomid', req.params.roomId);
+	gitter.fetchMessages(req.params.roomId, beforeMessageId, req.session.token, function(err, messages) {
 		if (err) return res.send(500);
 
 		var json = JSON.stringify({

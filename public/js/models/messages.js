@@ -6,10 +6,14 @@ define(function (require) {
 	var Message = require('models/message');
 
 	var Messages = Backbone.Collection.extend({
-		url: '/api/messages',
+		url: function() {
+			if (!this.options || !this.options.roomId) { return '#'; }
+			return '/api/rooms/' + this.options.roomId + '/messages';
+		},
 		model: Message,
-		initialize: function () {
-			console.log('M:Messages:init');
+		initialize: function (options) {
+			console.log('M:Messages:init', options);
+			this.options = options;
 		}
 	});
 

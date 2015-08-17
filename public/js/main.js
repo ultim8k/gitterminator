@@ -30,26 +30,33 @@ require.config({
 
 define(function (require) {
 	var marionette = require('marionette');
+	var backbone = require('backbone');
 	// var bootstrap = require('bootstrap');
 
 	var AppController = require('application-controller');
-
-	var Gitterminator = new Marionette.Application({
-		onStart: function(options) {
-			var router = new Router({
-				pushState: true,
-			});
-		}
-	});
-
-
+	var Gitterminator = new Marionette.Application();
 	var Router = Marionette.AppRouter.extend({
 		routes: {
-			'home': 'home'
+			'': 'root',
+			'home': 'home',
+			'rooms/:roomId': 'room'
+		},
+		initialize: function () {
+			console.log('R:Router:init');
+		},
+		home: function () {
+			console.log('R:Router:home');
+			Gitterminator.controller.home();
+		},
+		room: function(roomId) {
+			console.log('R:Router:room:'+roomId);
+			Gitterminator.controller.room(roomId);
 		}
 	});
+	Gitterminator.controller = new AppController();
 
-	var appController = new AppController();
+	Gitterminator.router = new Router();
+	Backbone.history.start({pushState: true});
 
 	$(function () {
 		Gitterminator.start();
