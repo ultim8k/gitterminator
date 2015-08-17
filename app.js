@@ -229,4 +229,4 @@ app.post('/api/messages', function(req, res) {
 });
 
 app.listen(port);
-console.log('Demo app running at http://localhost:' + port);
+console.log('Gitterminator running at http://localhost:' + port);
