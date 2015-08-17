@@ -1,0 +1,15 @@
+{
+	"name": "gitterminator",
+	"version": "1.0.0",
+	"dependencies": {
+		"requirejs": "latest",
+		"jquery": "latest",
+		"backbone-amd": "latest",
+		"underscore-amd": "latest",
+		"marionette": "latest",
+		"handlebars": "latest",
+		"text": "latest",
+		"requirejs-text": "latest",
+		"bootstrap": "latest"
+	}
+}
