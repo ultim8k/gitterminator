@@ -1,11 +1,10 @@
 <div class="media">
 	<div class="media-left">
-		<a href="#">
-			<img class="media-object" src="#" alt="USER">
+		<a class="user-avatar" target="_blank" href="{{fromUser.url}}">
+			<img class="media-object img-circle" src="{{fromUser.avatarUrlSmall}}" alt="{{fromUser.displayName}}">
 		</a>
 	</div>
-	<div class="media-body">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua.
+	<div class="media-body message-body">
+		{{text}}
 	</div>
 </div>

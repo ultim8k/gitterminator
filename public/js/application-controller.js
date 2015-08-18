@@ -5,6 +5,7 @@ define(function (require) {
 	var marionette = require('marionette');
 	// Views
 	var AppLayoutView = require('views/app-layout-view');
+	var RoomsView = require('views/rooms-view');
 	var MessagesView = require('views/messages-view');
 	var MessageComposeView = require('views/message-compose-view');
 	// var LandingView =  require('views/landing-view');
@@ -21,7 +22,7 @@ define(function (require) {
 		},
 		home: function () {
 			console.log('C:AppController:home');
-			// this.layout.sidebar.show();
+			this.layout.sidebar.show(new RoomsView());
 			// this.layout.main.show();
 			// this.layout.compose.show();
 		},
@@ -31,7 +32,7 @@ define(function (require) {
 			var messages = new Messages({
 				roomId: roomId
 			});
-			// this.layout.sidebar.show();
+			this.layout.sidebar.show(new RoomsView());
 			this.layout.main.show(new MessagesView({
 				collection: messages
 			}));

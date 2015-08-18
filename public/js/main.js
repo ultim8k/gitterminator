@@ -56,9 +56,9 @@ define(function (require) {
 	Gitterminator.controller = new AppController();
 
 	Gitterminator.router = new Router();
-	Backbone.history.start({pushState: true});
 
 	$(function () {
+		Backbone.history.start({pushState: true});
 		Gitterminator.start();
 	});
 
