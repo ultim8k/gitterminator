@@ -8,6 +8,11 @@ define(function (require) {
 	var MessagesView = Marionette.CollectionView.extend({
 		className: 'messages media-list',
 		childView: MessageItemView,
+		childViewOptions: function () {
+			return {
+				userId: this.options.userId
+			};
+		},
 		initialize: function () {
 			console.log('V:MessagesView:init');
 			// this.listenTo(this.collection, 'sync', function (data) {

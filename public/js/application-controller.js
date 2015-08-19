@@ -19,10 +19,10 @@ define(function (require) {
 			this.layout = new AppLayoutView();
 			this.layout.render();
 			var self = this;
-			var user = new User();
-			user.fetch().done(function () {
+			this.user = new User();
+			this.user.fetch().done(function (data) {
 				var rooms = new Rooms({
-					userId: user.get('id')
+					userId: self.user.get('id')
 				});
 				self.layout.sidebar.show(new RoomsView({
 					collection: rooms
@@ -41,14 +41,28 @@ define(function (require) {
 			var messages = new Messages({
 				roomId: roomId
 			});
-			this.layout.main.show(new MessagesView({
-				collection: messages
-			}));
+
+			var buildMessagesView = function () {
+				var messagesView = new MessagesView({
+					collection: messages,
+					userId: self.user.get('id')
+				});
+				self.layout.main.show(messagesView);
+				messages.fetch();
+			};
+
 			var messageComposeView = new MessageComposeView({
 				roomId: roomId
 			});
 			this.layout.compose.show(messageComposeView);
-			messages.fetch();
+			if (this.user.isNew()){
+				this.listenTo(this.user, 'sync', function () {
+					buildMessagesView();
+				});
+			} else {
+				buildMessagesView();
+			}
+
 			this.listenTo(messageComposeView, 'message:sent', function () {
 				messages.fetch();
 			});

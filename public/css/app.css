@@ -29,6 +29,7 @@
 	/*padding-bottom: 50px;*/
 }
 .messages {
+	padding-top: 20px;
 	max-height: 100vh;
 	overflow: scroll;
 }
@@ -67,4 +68,8 @@
 	top: 20px;
 	left: -5px;
 	border-radius: 4px;
+}
+.message-body.your-message-body:before {
+	left: auto;
+	right: -5px;
 }
