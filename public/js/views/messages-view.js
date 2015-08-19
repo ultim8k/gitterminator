@@ -10,9 +10,9 @@ define(function (require) {
 		childView: MessageItemView,
 		initialize: function () {
 			console.log('V:MessagesView:init');
-			this.listenTo(this.collection, 'sync', function (data) {
-				console.log('V:MessagesView:collection', data);
-			});
+			// this.listenTo(this.collection, 'sync', function (data) {
+			// 	console.log('V:MessagesView:collection', data);
+			// });
 		}
 	});
 

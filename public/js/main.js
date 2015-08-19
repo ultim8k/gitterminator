@@ -57,6 +57,20 @@ define(function (require) {
 
 	Gitterminator.router = new Router();
 
+	$(document).on("click", "a[href^='/']", function(event) {
+		var href, passThrough, url;
+		href = $(event.currentTarget).attr('href');
+		passThrough = href.indexOf('sign_out') >= 0;
+		if (!passThrough && !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
+			event.preventDefault();
+			url = href.replace(/^\//, '').replace('\#\!\/', '');
+			Gitterminator.router.navigate(url, {
+				trigger: true
+			});
+			return false;
+		}
+	});
+
 	$(function () {
 		Backbone.history.start({pushState: true});
 		Gitterminator.start();

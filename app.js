@@ -196,8 +196,8 @@ app.get('/api/user', function(req, res) {
 	});
 });
 
-app.get('/api/rooms', function(req, res) {
-	gitter.fetchRooms(req.user, req.session.token, function(err, rooms) {
+app.get('/api/users/:userId/rooms', function(req, res) {
+	gitter.fetchRooms({id: req.params.userId}, req.session.token, function(err, rooms) {
 		if (err) return res.send(500);
 
 		var json = JSON.stringify({

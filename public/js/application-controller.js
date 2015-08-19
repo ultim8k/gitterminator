@@ -19,20 +19,29 @@ define(function (require) {
 			console.log('C:AppController:init');
 			this.layout = new AppLayoutView();
 			this.layout.render();
+			var self = this;
+			var user = new User();
+			user.fetch().done(function () {
+				var rooms = new Rooms({
+					userId: user.get('id')
+				});
+				self.layout.sidebar.show(new RoomsView({
+					collection: rooms
+				}));
+				rooms.fetch();
+			});
 		},
 		home: function () {
 			console.log('C:AppController:home');
-			this.layout.sidebar.show(new RoomsView());
 			// this.layout.main.show();
 			// this.layout.compose.show();
 		},
 		room: function (roomId) {
 			var self = this;
-			console.log('C:AppController:room', this.layout.$el.html());
+			console.log('C:AppController:room');
 			var messages = new Messages({
 				roomId: roomId
 			});
-			this.layout.sidebar.show(new RoomsView());
 			this.layout.main.show(new MessagesView({
 				collection: messages
 			}));

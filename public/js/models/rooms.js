@@ -6,10 +6,18 @@ define(function (require) {
 	var Room = require('models/room');
 
 	var Rooms = Backbone.Collection.extend({
-		url: '/api/rooms',
+		url: function () {
+			if (!this.options || !this.options.userId) { return '#'; }
+			return '/api/users/' + this.options.userId + '/rooms';
+		},
+		parse: function (response) {
+			return response.rooms;
+		},
 		model: Room,
-		initialize: function () {
+		initialize: function (options) {
 			console.log('M:Rooms:init');
+			_.bindAll(this, 'parse');
+			this.options = options;
 		}
 	});
 
