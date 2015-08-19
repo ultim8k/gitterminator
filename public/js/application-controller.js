@@ -8,7 +8,6 @@ define(function (require) {
 	var RoomsView = require('views/rooms-view');
 	var MessagesView = require('views/messages-view');
 	var MessageComposeView = require('views/message-compose-view');
-	// var LandingView =  require('views/landing-view');
 	// Models
 	var User = require('models/user');
 	var Rooms = require('models/rooms');
@@ -45,8 +44,14 @@ define(function (require) {
 			this.layout.main.show(new MessagesView({
 				collection: messages
 			}));
-			this.layout.compose.show(new MessageComposeView());
+			var messageComposeView = new MessageComposeView({
+				roomId: roomId
+			});
+			this.layout.compose.show(messageComposeView);
 			messages.fetch();
+			this.listenTo(messageComposeView, 'message:sent', function () {
+				messages.fetch();
+			});
 		}
 	});
 	return AppController;

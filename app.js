@@ -36,19 +36,27 @@ var gitter = {
 
 	post: function (path, token, data, cb) {
 		var options = {
-		 url: gitterHost + path,
-		 headers: {
-			'Authorization': 'Bearer ' + token
-		 },
-		 method: 'POST',
-		 body: data
+			url: gitterHost + path,
+			headers: {
+				'Authorization': 'Bearer ' + token
+			},
+			method: 'POST',
+			json: data
 		};
 
 		request(options, function (err, res, body) {
 			if (err) return cb(err);
 
 			if (res.statusCode === 200) {
-				cb(null, JSON.parse(body));
+				if (body) {
+					try {
+						cb(null, JSON.parse(body));
+					} catch (er){
+						cb(null, body);
+					}
+				} else {
+					cb(null, body);
+				}
 			} else {
 				cb('err' + res.statusCode, JSON.parse(body));
 			}
@@ -75,7 +83,7 @@ var gitter = {
 
 	sendMessage: function (roomId, messageText, token, cb) {
 		var data = { text: messageText };
-		this.post('/api/v1/rooms/' + roomId + '/chatMessages', data, token, function(err, response) {
+		this.post('/api/v1/rooms/' + roomId + '/chatMessages', token, data, function(err, response) {
 			cb(err, response);
 		});
 	}
@@ -166,7 +174,14 @@ app.get('/home', function(req, res) {
 });
 
 app.get('/rooms/:id', function(req, res) {
-	if (!isValidSession(req, res) || !req.params.id) { return res.redirect('/'); }
+	if (!isValidSession(req, res) || !req.params.id) {
+		var id = req.params.id;
+		var redirectUrl = '/';
+		if (id) {
+			redirectUrl = '/?redirectUrl=/rooms/'+ id;
+		}
+		return res.redirect(redirectUrl);
+	}
 	// Fetch user rooms using the Gitter APIs
 	gitter.fetchMessages(req.params.id, null, req.session.token, function(err, response) {
 		if (err) {
@@ -221,8 +236,12 @@ app.get('/api/rooms/:roomId/messages', function(req, res) {
 });
 
 app.post('/api/messages', function(req, res) {
-	gitter.sendMessage(req.roomId, req.messageText, function(err, response) {
-		if (err) return res.send(500);
+	console.log('send message:', req.body);
+	gitter.sendMessage(req.body.roomId, req.body.messageText, req.session.token, function(err, response) {
+		if (err) {
+			console.log(err);
+			return res.send(500);
+		}
 		var json = JSON.stringify(response);
 		res.end(json);
 	});
