@@ -14,14 +14,18 @@
 .mono {
 	font-family: Monaco, "Liberation Mono", Courier, monospace;
 }
+.container-fluid.app {
+	padding: 0;
+	margin: 0;
+}
 .app-sidebar {
 	background-color: #515151;
 	color: white;
 	min-height: 100vh;
 }
 .app-main {
-	min-height: 100vh;
-	max-height: 100vh;
+	/*min-height: 100vh;
+	max-height: 100vh;*/
 	/*padding-bottom: 50px;*/
 }
 .messages {
