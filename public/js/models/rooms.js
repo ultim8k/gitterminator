@@ -15,7 +15,7 @@ define(function (require) {
 		},
 		model: Room,
 		initialize: function (options) {
-			console.log('M:Rooms:init');
+			// console.log('M:Rooms:init');
 			_.bindAll(this, 'parse');
 			this.options = options;
 		}

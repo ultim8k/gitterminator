@@ -15,7 +15,7 @@ define(function (require) {
 
 	var AppController = Marionette.Object.extend({
 		initialize: function () {
-			console.log('C:AppController:init');
+			// console.log('C:AppController:init');
 			this.layout = new AppLayoutView();
 			this.layout.render();
 			var self = this;
@@ -31,13 +31,13 @@ define(function (require) {
 			});
 		},
 		home: function () {
-			console.log('C:AppController:home');
+			// console.log('C:AppController:home');
 			// this.layout.main.show();
 			// this.layout.compose.show();
 		},
 		room: function (roomId) {
 			var self = this;
-			console.log('C:AppController:room');
+			// console.log('C:AppController:room');
 			var messages = new Messages({
 				roomId: roomId
 			});

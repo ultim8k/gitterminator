@@ -7,7 +7,7 @@ define(function (require) {
 	var Message = Backbone.Model.extend({
 		url: '/api/messages',
 		initialize: function () {
-			console.log('M:Message:init');
+			// console.log('M:Message:init');
 		}
 	});
 

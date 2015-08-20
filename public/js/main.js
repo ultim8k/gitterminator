@@ -31,10 +31,27 @@ require.config({
 define(function (require) {
 	var marionette = require('marionette');
 	var backbone = require('backbone');
-	// var bootstrap = require('bootstrap');
 
 	var AppController = require('application-controller');
 	var Gitterminator = new Marionette.Application();
+
+	Backbone.Marionette.TemplateCache.prototype.loadTemplate = function(templateId) {
+
+		var template = templateId;
+
+		if (!template || template.length === 0){
+			var msg = "Could not find template: '" + templateId + "'";
+			var err = new Error(msg);
+			err.name = "NoTemplateError";
+			throw err;
+		}
+
+		return template;
+	};
+
+
+
+
 	var Router = Marionette.AppRouter.extend({
 		routes: {
 			'': 'root',
@@ -42,14 +59,14 @@ define(function (require) {
 			'rooms/:roomId': 'room'
 		},
 		initialize: function () {
-			console.log('R:Router:init');
+			// console.log('R:Router:init');
 		},
 		home: function () {
-			console.log('R:Router:home');
+			// console.log('R:Router:home');
 			Gitterminator.controller.home();
 		},
 		room: function(roomId) {
-			console.log('R:Router:room:'+roomId);
+			// console.log('R:Router:room:'+roomId);
 			Gitterminator.controller.room(roomId);
 		}
 	});

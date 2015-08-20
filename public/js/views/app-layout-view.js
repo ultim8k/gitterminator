@@ -14,7 +14,7 @@ define(function (require) {
 			compose: "#app_compose"
 		},
 		initialize: function () {
-			console.log('V:AppLayoutView:init');
+			// console.log('V:AppLayoutView:init');
 		}
 	});
 

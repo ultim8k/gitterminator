@@ -22,14 +22,13 @@ define(function (require) {
 				return false;
 			}
 			this.model.set('messageText', messageText);
-			console.log(this.model.attributes);
 			this.model.save().done(function () {
 				$('.js_new_message').val('');
 				self.trigger('message:sent');
 			});
 		},
 		initialize: function (options) {
-			console.log('V:NewMessageView:init', this.model);
+			// console.log('V:NewMessageView:init', this.model);
 			this.model = new Message({
 				roomId: options.roomId
 			});

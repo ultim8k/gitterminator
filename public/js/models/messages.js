@@ -16,7 +16,7 @@ define(function (require) {
 			return response.messages;
 		},
 		initialize: function (options) {
-			console.log('M:Messages:init', options);
+			// console.log('M:Messages:init', options);
 			_.bindAll(this, 'parse');
 			this.options = options;
 		}

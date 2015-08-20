@@ -7,7 +7,7 @@ define(function (require) {
 	var Room = Backbone.Model.extend({
 		url: '#',
 		initialize: function () {
-			console.log('M:Room:init');
+			// console.log('M:Room:init');
 		}
 	});
 

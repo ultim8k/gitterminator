@@ -4,20 +4,31 @@
 define(function (require) {
 	var marionette = require('marionette');
 	var MessageItemView = require('views/message-item-view');
+	var handlebars = require('handlebars');
 
-	var MessagesView = Marionette.CollectionView.extend({
-		className: 'messages media-list',
+	var messagesTpl = require('text!templates/messages.hbs');
+
+	var MessagesView = Marionette.CompositeView.extend({
+		template: messagesTpl,
+		className: 'messages',
 		childView: MessageItemView,
+		childViewContainer: '.js_messages_list',
 		childViewOptions: function () {
 			return {
 				userId: this.options.userId
 			};
 		},
+		childEvents: function () {
+			return {
+				'message:append:done': this.messageAppendDone
+			}
+		},
+		messageAppendDone: function () {
+			var $list = this.$el;
+			$list.scrollTop($list[0].scrollHeight);
+		},
 		initialize: function () {
-			console.log('V:MessagesView:init');
-			// this.listenTo(this.collection, 'sync', function (data) {
-			// 	console.log('V:MessagesView:collection', data);
-			// });
+			// console.log('V:MessagesView:init', this);
 		}
 	});
 

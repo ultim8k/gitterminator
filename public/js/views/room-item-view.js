@@ -10,7 +10,7 @@ define(function (require) {
 	var RoomItemView = Marionette.ItemView.extend({
 		template: roomTpl,
 		initialize: function () {
-			console.log('V:RoomItemView:init');
+			// console.log('V:RoomItemView:init');
 		}
 	});
 

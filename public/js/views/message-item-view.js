@@ -19,10 +19,10 @@ define(function (require) {
 			return messageData;
 		},
 		onRender: function(data) {
-			console.log('V:MessageItemView:onRender', data);
+			this.trigger('message:append:done');
 		},
 		initialize: function () {
-			console.log('V:MessageItemView:init', this.model);
+			// console.log('V:MessageItemView:init', this.model);
 		}
 	});
 

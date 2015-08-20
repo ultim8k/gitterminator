@@ -21,20 +21,38 @@
 .app-sidebar {
 	background-color: #515151;
 	color: white;
-	min-height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 300px;
+	padding: 10px 20px;
 }
 .app-main {
-	/*min-height: 100vh;
-	max-height: 100vh;*/
-	/*padding-bottom: 50px;*/
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 300px;
+	padding: 10px 20px;
+}
+.app-compose {
+	background-color: #eaeaea;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	left: 300px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 .messages {
 	padding-top: 20px;
-	max-height: 100vh;
-	overflow: scroll;
-}
-.app-compose {
-
+	overflow-y: scroll;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 80px;
 }
 .message {
 	margin-bottom: 30px;

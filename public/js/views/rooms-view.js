@@ -8,7 +8,7 @@ define(function (require) {
 	var RoomsView = Marionette.CollectionView.extend({
 		childView: RoomItemView,
 		initialize: function () {
-			console.log('V:RoomsView:init');
+			// console.log('V:RoomsView:init');
 		}
 	});
 

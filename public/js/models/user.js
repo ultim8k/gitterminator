@@ -10,7 +10,7 @@ define(function (require) {
             return response.user;
         },
 		initialize: function () {
-			console.log('M:User:init');
+			// console.log('M:User:init');
             _.bindAll(this, 'parse');
 		}
 	});
