@@ -16,6 +16,9 @@ define(function (require) {
 			if (userId && messageData.fromUser && messageData.fromUser.id == userId) {
 				messageData.isOwnMessage = true;
 			}
+
+			var date = new Date(messageData.sent);
+			messageData.time = date.getHours() + ':'+ date.getMinutes();
 			return messageData;
 		},
 		onRender: function(data) {

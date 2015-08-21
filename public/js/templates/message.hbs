@@ -1,7 +1,11 @@
+{{#if text}}
 <div class="media">
 	{{#if isOwnMessage}}
 		<div class="media-body message-body your-message-body">
-			{{text}}
+			<div class="media-heading message-meta">
+				<span>{{#if fromUser.displayName}}{{fromUser.displayName}}{{else}}{{fromUser.username}}{{/if}}</span> at <span class="sent-time">{{time}}</span>
+			</div>
+			<div>{{{html}}}</div>
 		</div>
 		<div class="media-right">
 			<a class="user-avatar" target="_blank" href="{{fromUser.url}}">
@@ -15,7 +19,11 @@
 			</a>
 		</div>
 		<div class="media-body message-body">
-			{{text}}
+			<div class="media-heading message-meta">
+				<span>{{#if fromUser.displayName}}{{fromUser.displayName}}{{else}}{{fromUser.username}}{{/if}}</span> at <span class="sent-time">{{time}}</span>
+			</div>
+			<div>{{{html}}}</div>
 		</div>
 	{{/if}}
 </div>
+{{/if}}
